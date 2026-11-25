@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07152d">
+<title>¡Asalta la ciberseguridad! — Caso: Sabotaje en la red</title>
+<style>
+:root{--bg:#071326;--panel:#102541;--panel2:#142e50;--line:#24517b;--cyan:#32e6ff;--yellow:#ffc928;--red:#ff626d;--green:#4be0a0;--text:#f2f7ff;--muted:#b7c9df}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0%,#123b67 0,transparent 34%),radial-gradient(circle at 90% 30%,#082b4b 0,transparent 30%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1120px;margin:auto;padding:22px}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0 22px;border-bottom:1px solid #244568}
+.brand{font-weight:900;letter-spacing:.08em;color:var(--cyan);font-size:.8rem;text-transform:uppercase}.top-pill{border:1px solid #2a608b;border-radius:999px;padding:7px 12px;color:var(--muted);font-size:.82rem}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:38px 0 28px}
+.kicker{color:var(--yellow);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem}
+h1{font-size:clamp(2.2rem,6vw,4.5rem);line-height:.98;margin:12px 0 18px;letter-spacing:-.045em}
+h1 span{color:var(--cyan);text-shadow:0 0 22px #16cfff55}
+.lead{font-size:1.08rem;color:var(--muted);max-width:650px}
+.hero-art{min-height:230px;display:grid;place-items:center;position:relative}
+.shield{width:190px;height:190px;border:3px solid var(--cyan);border-radius:48% 48% 45% 45%;display:grid;place-items:center;background:linear-gradient(145deg,#174e84,#081a32);box-shadow:0 0 35px #00cfff55,inset 0 0 35px #00cfff22;font-size:5rem;animation:pulse 3s infinite}
+.orbit{position:absolute;border:1px dashed #3b9fc7;border-radius:50%;width:245px;height:245px;animation:spin 24s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;width:13px;height:13px;background:var(--yellow);border-radius:50%;box-shadow:0 0 15px var(--yellow)}.orbit:before{top:25px;left:25px}.orbit:after{right:12px;bottom:40px;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+@keyframes pulse{50%{box-shadow:0 0 55px #00cfff99,inset 0 0 45px #00cfff33;transform:scale(1.025)}}@keyframes spin{to{transform:rotate(360deg)}}
+.panel{background:linear-gradient(145deg,#112a49,#0b1d35);border:1px solid var(--line);border-radius:20px;padding:22px;margin:18px 0;box-shadow:0 14px 35px #0003}
+.panel h2{margin:0 0 10px;font-size:1.45rem}.sub{color:var(--muted);margin-top:0}
+.case-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+.alert{border-left:4px solid var(--red);background:#471f35aa;padding:16px;border-radius:12px}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.tag{border:1px solid #315b80;border-radius:9px;padding:7px 10px;color:#d8e9fa;font-size:.86rem}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.person{background:#0a1a30;border:1px solid #294d70;border-radius:14px;padding:14px;text-align:center}.avatar{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;font-size:2rem;background:#183e62;border:2px solid #3a83ae}.person strong{display:block}.person small{color:var(--muted)}
+.progressbox{display:flex;align-items:center;gap:12px;margin:18px 0}.bar{height:9px;background:#203d5b;border-radius:20px;overflow:hidden;flex:1}.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s}.progresslabel{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.clues{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.clue{border:1px solid #2a5277;background:#0b1c32;border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start;transition:.2s}.clue:hover{transform:translateY(-2px);border-color:var(--cyan)}.clue-icon{font-size:1.55rem}.clue h3{font-size:1rem;margin:0 0 5px}.clue p{color:var(--muted);font-size:.91rem;margin:0}.clue button{margin-top:10px}
+.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:800;background:var(--yellow);color:#182033;box-shadow:0 4px 0 #b77d00;transition:.15s}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn:active{transform:translateY(2px);box-shadow:none}.btn.secondary{background:#163b60;color:var(--text);box-shadow:0 4px 0 #071326;border:1px solid #3474a5}.btn.cyan{background:var(--cyan);box-shadow:0 4px 0 #08758c}
+.locked{opacity:.62}.locked .clue-icon{filter:grayscale(1)}
+.quiz{display:grid;gap:14px}.question{padding:16px;border-radius:13px;background:#0a1a30;border:1px solid #294d70}.question h3{margin:0 0 12px;font-size:1.02rem}.choices{display:grid;gap:8px}.choice{display:flex;align-items:flex-start;gap:10px;padding:10px;border:1px solid #315779;border-radius:10px;color:#e7f1fc;cursor:pointer}.choice:hover{background:#173756}.choice input{accent-color:#20d7f3;margin-top:5px}
+.feedback{padding:13px;border-radius:10px;margin-top:12px;display:none}.feedback.show{display:block}.good{background:#103e37;border:1px solid #258d70}.bad{background:#4a2634;border:1px solid #a64a5c}
+.suspects{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.suspect{background:#0a1a30;border:1px solid #294d70;border-radius:13px;padding:14px}.suspect label{display:block;font-weight:800;margin-bottom:8px}.suspect select{width:100%;background:#102b49;color:white;border:1px solid #3c678d;border-radius:8px;padding:9px}
+.finalbox{border:1px solid #4b7899;background:linear-gradient(130deg,#102d4b,#152541);border-radius:16px;padding:20px}.finalbox h3{margin-top:0}.reveal{display:none;margin-top:16px;padding:18px;border-radius:13px;background:#103b37;border:1px solid #38b78e}.reveal.show{display:block;animation:fade .5s}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.lesson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.lesson{padding:14px;background:#0a1a30;border:1px solid #294d70;border-radius:12px}.lesson b{color:var(--cyan);display:block;margin-bottom:5px}.lesson p{font-size:.9rem;color:var(--muted);margin:0}
+footer{padding:28px 0 45px;color:var(--muted);font-size:.85rem;text-align:center}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);background:#eaf8ff;color:#071326;padding:11px 17px;border-radius:10px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.hero,.case-grid{grid-template-columns:1fr}.hero{padding-top:25px}.hero-art{min-height:190px}.shield{width:145px;height:145px;font-size:4rem}.orbit{width:190px;height:190px}.people,.suspects,.lesson-grid{grid-template-columns:1fr}.clues{grid-template-columns:1fr}.wrap{padding:15px}.panel{padding:16px}}
+@media print{body{background:white;color:#111}.panel,.person,.clue,.question,.lesson,.suspect{background:white;color:#111;box-shadow:none}.sub,.clue p,.lesson p,.person small{color:#333}.hero-art,.btn,header .top-pill{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand">🔐 Aula de ciberseguridad · FPE</div><div class="top-pill">Módulo: Seguridad en Equipos Informáticos</div></header>
+<section class="hero">
+ <div><div class="kicker">Reto de investigación · Nivel 1</div><h1>¡Asalta la <span>ciberseguridad!</span></h1><p class="lead">Analiza las pistas, separa los hechos de las sospechas y descubre qué ha ocurrido en la red de la empresa. Tendrás que pensar como un equipo de respuesta ante incidentes.</p><div class="statline"><span class="tag">⏱️ 20–30 minutos</span><span class="tag">🕵️ 3 sospechosos</span><span class="tag">🧩 6 pistas</span></div></div>
+ <div class="hero-art" aria-label="Escudo de seguridad"><div class="orbit"></div><div class="shield">🛡️</div></div>
+</section>
+
+<section class="panel">
+ <h2>📁 El caso: sabotaje en la red</h2><p class="sub">Lee el escenario antes de abrir las pruebas.</p>
+ <div class="case-grid">
+  <div class="alert"><b>🚨 INCIDENTE DE SEGURIDAD</b><p>Un ataque ha paralizado parte de la red de la empresa. Se han borrado archivos clave y varios servicios están fuera de línea. El equipo técnico ha aislado los sistemas afectados para evitar que el incidente se extienda.</p><b>Tu misión:</b> reconstruir lo ocurrido, identificar la causa más probable y proponer medidas para evitar que vuelva a suceder.</div>
+  <div><b>📌 Datos iniciales</b><div class="statline"><span class="tag">Acceso con usuario interno</span><span class="tag">Actividad fuera de horario</span><span class="tag">Mensajes sospechosos</span><span class="tag">Conflictos en el equipo</span></div><p class="sub" style="margin-top:13px">Importante: una cuenta utilizada en el ataque no demuestra, por sí sola, quién estaba delante del ordenador.</p></div>
+ </div>
+</section>
+
+<section class="panel">
+ <h2>👥 Personas relacionadas con el caso</h2><p class="sub">Todas tenían relación con los sistemas o con la información afectada. No acuses a nadie sin pruebas.</p>
+ <div class="people">
+  <div class="person"><div class="avatar">👩🏻‍💻</div><strong>Alicia</strong><small>Desarrolladora</small><p class="sub">Trabaja con código y aplicaciones internas.</p></div>
+  <div class="person"><div class="avatar">🧔🏻‍💻</div><strong>Juan Ramón</strong><small>Administración de sistemas</small><p class="sub">Gestiona servidores, cuentas y permisos.</p></div>
+  <div class="person"><div class="avatar">👨🏻‍💼</div><strong>Sigfried</strong><small>Comercial</small><p class="sub">Accede a documentación y datos de clientes.</p></div>
+ </div>
+</section>
+
+<section class="panel" id="investigacion">
+ <h2>🔎 Centro de investigación</h2><p class="sub">Abre las seis pistas. Cada una aporta una pieza distinta del rompecabezas.</p>
+ <div class="progressbox"><div class="bar"><i id="progress"></i></div><span class="progresslabel" id="progressText">0 de 6 pistas examinadas</span></div>
+ <div class="clues" id="clues">
+  <article class="clue"><div class="clue-icon">🪪</div><div><h3>1. Registro de accesos</h3><p>¿Qué cuenta se utilizó y qué demuestra realmente el registro?</p><button class="btn secondary open-clue" data-clue="0">Examinar pista</button></div></article>
+  <article class="clue locked"><div class="clue-icon">🕒</div><div><h3>2. Línea temporal</h3><p>Ordena los acontecimientos y detecta la actividad anómala.</p><button class="btn secondary open-clue" data-clue="1">Examinar pista</button></div></article>
+  <article class="clue locked"><div class="clue-icon">✉️</div><div><h3>3. Mensaje sospechoso</h3><p>Busca señales de phishing e ingeniería social.</p><button class="btn secondary open-clue" data-clue="2">Examinar pista</button></div></article>
+  <article class="clue locked"><div class="clue-icon">🧾</div><div><h3>4. Huellas digitales</h3><p>Compara los registros del servidor y del equipo.</p><button class="btn secondary open-clue" data-clue="3">Examinar pista</button></div></article>
+  <article class="clue locked"><div class="clue-icon">💬</div><div><h3>5. Conflicto interno</h3><p>Valora el móvil sin confundir rumores con evidencias.</p><button class="btn secondary open-clue" data-clue="4">Examinar pista</button></div></article>
+  <article class="clue locked"><div class="clue-icon">💾</div><div><h3>6. Copias de seguridad</h3><p>Comprueba qué se puede recuperar y qué falló.</p><button class="btn secondary open-clue" data-clue="5">Examinar pista</button></div></article>
+ </div>
+ <div id="clueDetail" class="question" style="display:none;margin-top:16px" aria-live="polite"><div class="kicker">Documento de investigación</div><h3 id="clueTitle"></h3><p id="clueText"></p><div id="clueQuestion"></div><button class="btn cyan" id="closeClue">Cerrar documento</button></div>
+</section>
+
+<section class="panel">
+ <h2>🧠 Antes de acusar: demuestra lo que has aprendido</h2><p class="sub">Responde a estas preguntas sobre seguridad en equipos informáticos. Puedes corregirlas antes de entregar.</p>
+ <div class="quiz" id="quiz">
+  <div class="question"><h3>1. ¿Qué es lo primero que debe hacerse ante un incidente activo?</h3><div class="choices">
+   <label class="choice"><input type="radio" name="q1" value="a"> Apagar todos los equipos sin registrar nada.</label>
+   <label class="choice"><input type="radio" name="q1" value="b"> Activar el procedimiento de respuesta, contener el incidente y preservar evidencias.</label>
+   <label class="choice"><input type="radio" name="q1" value="c"> Borrar los archivos sospechosos inmediatamente.</label>
+  </div></div>
+  <div class="question"><h3>2. ¿Qué principio limita los permisos de cada usuario a lo imprescindible?</h3><div class="choices">
+   <label class="choice"><input type="radio" name="q2" value="a"> Mínimo privilegio.</label>
+   <label class="choice"><input type="radio" name="q2" value="b"> Acceso ilimitado.</label>
+   <label class="choice"><input type="radio" name="q2" value="c"> Contraseña compartida.</label>
+  </div></div>
+  <div class="question"><h3>3. Un correo pide introducir la contraseña en un enlace urgente. ¿Qué amenaza puede ser?</h3><div class="choices">
+   <label class="choice"><input type="radio" name="q3" value="a"> Phishing.</label>
+   <label class="choice"><input type="radio" name="q3" value="b"> Copia de seguridad incremental.</label>
+   <label class="choice"><input type="radio" name="q3" value="c"> Cifrado de disco legítimo.</label>
+  </div></div>
+  <div class="question"><h3>4. ¿Qué aporta una copia de seguridad aislada o inmutable?</h3><div class="choices">
+   <label class="choice"><input type="radio" name="q4" value="a"> Evita tener que actualizar los equipos.</label>
+   <label class="choice"><input type="radio" name="q4" value="b"> Impide cualquier ataque informático.</label>
+   <label class="choice"><input type="radio" name="q4" value="c"> Reduce el riesgo de que el atacante también la borre o altere.</label>
+  </div></div>
+  <div class="question"><h3>5. ¿Por qué no basta con ver que se usó una cuenta interna?</h3><div class="choices">
+   <label class="choice"><input type="radio" name="q5" value="a"> Porque los registros nunca son útiles.</label>
+   <label class="choice"><input type="radio" name="q5" value="b"> Porque las credenciales pueden haber sido robadas o una sesión comprometida.</label>
+   <label class="choice"><input type="radio" name="q5" value="c"> Porque las cuentas internas no pueden ser atacadas.</label>
+  </div></div>
+  <button class="btn" id="gradeQuiz">Corregir cuestionario</button><div id="quizFeedback" class="feedback" aria-live="polite"></div>
+</div>
+</section>
+
+<section class="panel">
+ <h2>🕵️ Tu hipótesis: ¿quién y por qué?</h2><p class="sub">Una buena investigación distingue entre indicios, pruebas y conclusiones. Selecciona una hipótesis y justifícala.</p>
+ <div class="finalbox">
+  <div class="suspects">
+   <div class="suspect"><label for="who">¿Qué hipótesis eliges?</label><select id="who"><option value="">Selecciona…</option><option value="alicia">Alicia</option><option value="juan">Juan Ramón</option><option value="sigfried">Sigfried</option><option value="externo">Un tercero que comprometió una cuenta interna</option></select></div>
+   <div class="suspect"><label for="why">¿Qué explicación encaja mejor?</label><select id="why"><option value="">Selecciona…</option><option value="venganza">Venganza por un conflicto laboral</option><option value="robo">Robo de credenciales mediante phishing</option><option value="error">Error accidental de configuración</option><option value="beneficio">Beneficio económico personal</option></select></div>
+   <div class="suspect"><label for="measure">¿Qué medida priorizarías?</label><select id="measure"><option value="">Selecciona…</option><option value="mfa">Restablecer credenciales y activar MFA</option><option value="permisos">Revisar permisos y aplicar mínimo privilegio</option><option value="backup">Aislar y probar copias de seguridad</option><option value="todo">Aplicar todas las medidas coordinadamente</option></select></div>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem">Pista metodológica: una hipótesis no es una prueba. Para atribuir un incidente hacen falta evidencias corroboradas y una cadena de custodia adecuada.</p>
+  <button class="btn cyan" id="solve">Presentar conclusión</button>
+  <div class="reveal" id="reveal" aria-live="polite"></div>
+ </div>
+</section>
+
+<section class="panel">
+ <h2>🛡️ Lo que esconde este caso: contenidos del módulo</h2><p class="sub">Al finalizar, relaciona cada aprendizaje con una práctica de seguridad.</p>
+ <div class="lesson-grid">
+  <div class="lesson"><b>1. Control de acceso</b><p>Identificación, autenticación, autorización, contraseñas robustas y autenticación multifactor.</p></div>
+  <div class="lesson"><b>2. Amenazas y malware</b><p>Phishing, robo de credenciales, código malicioso y uso indebido de cuentas.</p></div>
+  <div class="lesson"><b>3. Registros y auditoría</b><p>Logs, marcas de tiempo, trazabilidad, correlación de eventos y preservación de evidencias.</p></div>
+  <div class="lesson"><b>4. Protección de sistemas</b><p>Actualizaciones, antivirus/EDR, cortafuegos, segmentación y mínimo privilegio.</p></div>
+  <div class="lesson"><b>5. Copias y recuperación</b><p>Copias periódicas, regla 3-2-1, aislamiento, pruebas de restauración y continuidad.</p></div>
+  <div class="lesson"><b>6. Respuesta a incidentes</b><p>Preparar, identificar, contener, erradicar, recuperar y aprender del incidente.</p></div>
+ </div>
+</section>
+<footer>Recurso didáctico ficticio · Formación Profesional para el Empleo · Seguridad en Equipos Informáticos<br>El caso y sus evidencias son simulados para practicar el razonamiento y la respuesta ante incidentes.</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const clues=[
+ {title:"1. Registro de accesos",text:"El servidor registra una conexión a las 22:47 con la cuenta de administración de sistemas «jramon.admin». Se realizaron operaciones con permisos elevados. El registro acredita el uso de esa cuenta, pero no identifica de forma concluyente a la persona que la utilizó.",q:"¿Qué conclusión es rigurosa?",opts:["Juan Ramón es culpable porque aparece su cuenta.","La cuenta privilegiada fue utilizada; hay que comprobar quién controlaba la sesión.","El registro demuestra que fue un fallo eléctrico."],correct:1,explain:"Correcto: una cuenta puede ser utilizada por su titular, por otra persona o por un atacante que haya robado sus credenciales."},
+ {title:"2. Línea temporal",text:"21:58: se recibe un correo con asunto «Incidencia urgente: acceso VPN». 22:13: se registra un inicio de sesión VPN desde una dirección IP no habitual. 22:47: se ejecutan órdenes administrativas. 22:51: comienza el borrado de archivos. 23:02: el sistema de monitorización genera una alerta.",q:"¿Qué debes investigar primero?",opts:["La relación temporal entre el correo, el acceso VPN y las órdenes administrativas.","El color de los equipos de la oficina.","Quién llegó primero al trabajo al día siguiente."],correct:0,explain:"Correcto: correlacionar eventos y horas permite reconstruir la secuencia y orientar la investigación."},
+ {title:"3. Mensaje sospechoso",text:"El correo incluye un enlace a una página que imita el portal corporativo. Solicita «verificar la cuenta inmediatamente» y amenaza con bloquearla. El dominio del enlace no coincide con el oficial.",q:"¿Qué tipo de técnica muestra el mensaje?",opts:["Phishing: intenta engañar para obtener credenciales.","Una actualización oficial del sistema.","Una copia de seguridad."],correct:0,explain:"Correcto: la urgencia, el dominio extraño y la petición de credenciales son señales típicas de phishing."},
+ {title:"4. Huellas digitales",text:"El análisis del equipo de administración encuentra una sesión VPN abierta tras introducir credenciales válidas. La IP de origen no coincide con la conexión habitual de Juan Ramón. No se encuentra evidencia concluyente de presencia física en la oficina a esa hora.",q:"¿Qué interpretación es más prudente?",opts:["La IP basta para identificar a una persona concreta.","Las credenciales o la sesión pudieron ser comprometidas; hay que ampliar el análisis.","No hace falta conservar los registros."],correct:1,explain:"Correcto: una IP es un indicador técnico, no una identidad. Deben revisarse más fuentes y preservarse los registros."},
+ {title:"5. Conflicto interno",text:"Se confirma que hubo desacuerdos recientes entre miembros del equipo. Sin embargo, las entrevistas no aportan amenazas verificables ni pruebas de que alguien planeara borrar los archivos.",q:"¿Cómo debe tratarse este dato?",opts:["Como prueba definitiva de un sabotaje interno.","Como contexto que puede orientar preguntas, pero no demuestra autoría ni móvil.","Debe publicarse el nombre del sospechoso."],correct:1,explain:"Correcto: el conflicto puede ser relevante, pero no sustituye a la evidencia técnica. Evita acusaciones precipitadas."},
+ {title:"6. Copias de seguridad",text:"La copia conectada al servidor principal también fue eliminada. Existe una copia semanal desconectada, cuya integridad debe verificarse antes de restaurar. No se ha documentado una prueba reciente de recuperación.",q:"¿Qué actuación es la más adecuada?",opts:["Restaurar sin comprobar la copia.","Verificar la integridad, preservar evidencias y realizar una restauración controlada.","Conectar todas las copias a la red para acelerar el proceso."],correct:1,explain:"Correcto: las copias aisladas ayudan a resistir el sabotaje, pero hay que comprobarlas y probar la restauración."}
+];
+let opened=new Set(),answered=new Set();
+const $=id=>document.getElementById(id);
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
+function updateProgress(){$("progress").style.width=(opened.size/6*100)+"%";$("progressText").textContent=opened.size+" de 6 pistas examinadas";document.querySelectorAll(".clue").forEach((el,i)=>{el.classList.toggle("locked",i>0&&!opened.has(i-1)&&!opened.has(i));});}
+document.querySelectorAll(".open-clue").forEach(btn=>btn.addEventListener("click",()=>{
+ const i=Number(btn.dataset.clue);if(i>0&&!opened.has(i-1)){toast("Examina primero la pista anterior.");return}
+ const c=clues[i];opened.add(i);$("clueTitle").textContent=c.title;$("clueText").textContent=c.text;
+ $("clueQuestion").innerHTML="<p><b>"+c.q+"</b></p><div class='choices'>"+c.opts.map((o,j)=>`<label class="choice"><input type="radio" name="clueAnswer" value="${j}"> ${o}</label>`).join("")+"</div><div id='clueFeedback' class='feedback'></div><button class='btn' id='checkClue'>Comprobar respuesta</button>";
+ $("clueDetail").style.display="block";$("clueDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
+ $("checkClue").addEventListener("click",()=>{const v=document.querySelector('input[name="clueAnswer"]:checked');if(!v){toast("Selecciona una respuesta.");return}const ok=Number(v.value)===c.correct;answered.add(i);const f=$("clueFeedback");f.className="feedback show "+(ok?"good":"bad");f.innerHTML=(ok?"<b>✓ ¡Bien razonado!</b> ":"<b>Revisa la pista.</b> ")+c.explain;updateProgress();});
+ updateProgress();
+}));
+$("closeClue").addEventListener("click",()=>$("clueDetail").style.display="none");
+$("gradeQuiz").addEventListener("click",()=>{const key={q1:"b",q2:"a",q3:"a",q4:"c",q5:"b"};let score=0,missing=0;Object.entries(key).forEach(([q,a])=>{const v=document.querySelector(`input[name="${q}"]:checked`);if(!v)missing++;else if(v.value===a)score++});const f=$("quizFeedback");f.className="feedback show "+(score>=4&&missing===0?"good":"bad");f.innerHTML=`<b>Resultado: ${score}/5.</b> ${missing?`Te faltan ${missing} pregunta(s). `:""}${score===5?"¡Excelente! Dominas los conceptos clave.":score>=3?"Buen trabajo. Revisa las respuestas que has fallado.":"Repasa los contenidos y vuelve a intentarlo."}`;});
+$("solve").addEventListener("click",()=>{
+ const who=$("who").value,why=$("why").value,measure=$("measure").value;
+ if(!who||!why||!measure){toast("Completa las tres selecciones para presentar tu conclusión.");return}
+ const isRight=who==="externo"&&why==="robo"&&measure==="todo";
+ $("reveal").classList.add("show");
+ $("reveal").innerHTML=isRight?`<h3>🟢 Conclusión mejor respaldada</h3><p>La hipótesis más consistente con las pistas diseñadas para este caso es que <b>un tercero comprometió una cuenta interna mediante phishing</b> y utilizó la sesión privilegiada para sabotear sistemas y copias conectadas. El conflicto interno no demuestra un móvil ni permite acusar a ninguna de las tres personas.</p><p><b>Respuesta a «quién»:</b> no hay base para atribuirlo a Alicia, Juan Ramón o Sigfried. <b>Respuesta a «por qué»:</b> el motivo concreto no queda acreditado; sí se observa una intrusión que busca causar indisponibilidad y pérdida de información.</p><p><b>Actuación:</b> contener, preservar evidencias, restablecer credenciales, activar MFA, revisar privilegios, verificar copias y recuperar de forma controlada.</p>`:`<h3>🟠 Tu hipótesis necesita más apoyo</h3><p>Con las pistas disponibles, no se puede atribuir el sabotaje a una persona concreta del equipo. La secuencia del correo, la VPN y el uso de una cuenta privilegiada apunta a un posible compromiso de credenciales. El conflicto laboral es solo contexto.</p><p>Vuelve a valorar: <b>tercero que comprometió una cuenta interna</b>, <b>robo de credenciales mediante phishing</b> y <b>respuesta coordinada con todas las medidas</b>.</p>`;
+ $("reveal").scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+updateProgress();
+</script>
+</body></html>
